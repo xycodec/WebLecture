@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+<!--    标签页显示的标题-->
+    <title>HTMLBasic1</title>
+</head>
+<body>
+<!--	标题-->
+    <h1>一级标题</h1>
+    <h2>二级标题</h2>
+    <h3>三级标题</h3>
+    <h4>四级标题</h4>
+    <h5>五级标题</h5>
+    <h6>六级标题</h6>
+
+    <p>这里是段落...</p>
+	<p>这是另一个段落...</p>
+	<p>
+		<strong>加粗段落</strong>
+		<em>倾斜段落</em>
+	</p>
+<!--	target属性指定_blank,表示新建一个空的标签页-->
+	<a href="http://www.baidu.com" target="_blank">百度超链接</a>
+
+<!--	列表, ul:不表示顺序; ol:表示顺序-->
+	<ul>
+		<li>first</li>
+		<li>second</li>
+		<li>third</li>
+		<li>forth</li>
+	</ul>
+
+	<ol>
+		<li>first</li>
+		<li>second</li>
+		<li>third</li>
+		<li>forth</li>
+	</ol>
+
+<!--	表格,
+	thead: table head;
+	tbody: table body;
+	tr: table row;
+	td: table data cell-->
+	<table>
+		<thead>
+			<tr>表头1</tr>
+			<tr>表头2</tr>
+			<tr>表头3</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>11</td>
+				<td>12</td>
+				<td>12</td>
+			</tr>
+			<tr>
+				<td>21</td>
+				<td>22</td>
+				<td>22</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+
+<!--	表单,
+	div: HTML Content Division element -->
+	<form>
+		<div>
+			<label>姓名</label>
+			<input type="text" name="name" placeholder="请输入姓名">
+		</div>
+		<div>
+			<label>性别</label>
+			<input type="text" name="gender" placeholder="请输入性别">
+		</div>
+		<div>
+			<label>年龄</label>
+			<input type="number" name="age" placeholder="请输入年龄">
+		</div>
+<!--		提交按钮, value是按钮上的提示文字-->
+		<input type="submit" name="submit" value="提交">
+	</form>
+
+<!--	图片,
+	alt: 当图片无法正确加载时,指定显示的提示信息
+	style: 一种css样式, 100vw (100 % view width)占百分之百的显示宽度-->
+	<img src="imgs/2.jpg" alt="图片加载错误" style="width: 100vw">
+
+<!--	引用-->
+	<blockquote>
+		这是一段引用......
+	</blockquote>
+
+<!--	abbr:　缩略信息-->
+	<p>
+		<abbr title="电子科技大学">UESTC</abbr> is a famous university
+	</p>
+	<div style="margin-top: 500px"></div>
+</body>
+</html>

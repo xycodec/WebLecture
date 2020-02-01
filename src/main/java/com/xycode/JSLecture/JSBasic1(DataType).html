@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <title>JSBasic</title>
+    <script>
+        //var: 变量标识符
+        var a=10,b=20;
+        //const: 常量标识符,注意const var是非法的
+        const c = a + b;
+        console.log(c);
+        /*
+            JS的六种数据类型:
+            String,Number,Boolean,Null,Undefined,Object
+         */
+        //String
+        var str="\"hello\"";//\表示转义字符
+        console.log(str);
+        str='\\hello\\';//JS中的单引号也可以表示字符串
+        console.log(str)
+
+        //Number
+        var d=Number.MAX_VALUE;
+        console.log(d,typeof d);//typeof关键字可以得到数据类型,打印出number
+        //一些特殊值的Number值
+        d=Infinity;//表示正无穷
+        console.log(d);
+        d=-Infinity;//表示负无穷
+        console.log(d);
+        d=NaN;//语义:Not a Number,但是NaN本身确实Number类型
+        console.log(d,typeof d);
+
+        //Null,空值,是用来服务Object的
+        console.log(null,typeof null);//可以看出Null也是一种Object
+
+        //Undefined,未定义,当声明一个变量但未对其初始化时,其值就是undefined
+        var e;
+        console.log(e,typeof e)
+    </script>
+</head>
+<body>
+
+</body>
+</html>

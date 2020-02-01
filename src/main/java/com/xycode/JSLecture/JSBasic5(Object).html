@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSBasic5</title>
+    <script type="text/javascript">
+        /*
+            Object类型,相比java,JS中的Object可以动态添加属性
+         */
+        var obj=new Object();
+        obj.name="xycode";
+        obj.age=22;
+        obj.gender="male";
+        console.log(obj);// -> {name: "xycode", age: 22, gender: "male"}
+        console.log(obj.gender);
+        console.log(obj.sss);//访问一个不存在的属性,会返回undefined
+
+        //删除一个属性
+        delete obj.gender;
+        console.log(obj.gender);// -> undefined
+
+        //检查某个属性存在与否
+        console.log("gender" in obj);// -> false
+        console.log("age" in obj);// -> true
+
+        //注意Object是一种引用类型(栈存放一个引用,引用的真实数据在堆中),这与Number,String,Boolean这样的基本类型不同(存放于栈中),其间的差异同java
+
+        //另一种创建Object的方式,类似于python中dict的创建方式
+        var obj2={};
+        obj2={//类似于有参构造器
+            "name":"xycode",
+            "age":22,
+            "gender":"male"
+        };
+        console.log(obj2);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

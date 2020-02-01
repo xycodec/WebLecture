@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSBasic8</title>
+    <script type="text/javascript">
+        /*
+            数组的使用:
+                在JS中,数组也是一种对象
+         */
+        var arr=new Array();
+        arr=[];//另一种创建方式
+        //以上创建的是空数组,可以直接添加元素,有点类似List
+        arr[0]=10;
+        arr[1]=20;
+        arr.push(30);//末尾添加元素,unshift()是从前面开始添加
+        console.log(arr,arr.length);// -> (3) [10, 20, 30] 3
+
+        //在创建时指定数组元素/长度
+        arr=[1,2,3,4,5];
+        arr.pop();//删除元素(删除最后一个元素),shift()是从开头开始删除
+        console.log(arr,arr.length);// -> (4) [1, 2, 3, 4] 4
+        arr=new Array(10);
+        console.log(arr,arr[0],arr.length);// -> (10) [empty × 10] undefined 10
+
+        //数组就是对象,这里就是将数组当Object来用,添加一个comment属性,不过这样做没多大必要
+        arr.comment="this is array comment";
+        console.log("comment" in arr,arr.hasOwnProperty("comment"),arr.comment);// -> true true "this is array comment"
+        //数组的元素可以是对象(甚至可以是函数对象)
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript">
+    /*
+        JS中的函数: Function,实际上也是一种对象
+     */
+
+    //这种定义函数的方式不常用
+    var func=new Function("console.log(\"this is a function\");");
+    func();
+
+    //常用的定义函数的方式:
+    function func2() {
+        console.log("this is another function");
+    }
+    func2();
+
+    //另一种定义方式,匿名函数
+    var func3=function () {
+        console.log("this is a anonymous function");
+    };// 这里最好加 ;
+    func3();
+
+
+    //接下来看有参(带返回值的)函数,
+    function sum(a,b,c) {
+        if((typeof a)=="number"&&(typeof b)=="number"&&(typeof c)=="number")
+            return a+b+c;
+        else
+            return NaN;
+    }
+
+    console.log(sum(1,2,3));// -> 6
+    console.log(sum("1",2,3));// -> NaN
+
+    //因为函数实际上也是一种对象,所以函数也就可以作为参数
+    function handleFunc(func) {
+        console.log(func);
+        func();
+    }
+    handleFunc(function () {
+        console.log("function args is another function");
+    });
+
+    //如果传入参数是引用类型的,在函数内修改改引用参数指向的数据,那么外部也会一起改变
+    function change(obj) {
+        obj.name="changed";
+    }
+    var obj={
+        "name":"xycode",
+        "age":22
+    };
+    console.log(obj);// -> {name: "xycode", age: 22}
+    change(obj);
+    console.log(obj);// -> {name: "changed", age: 22},可以看出数据一起改变了
+
+    //一次性执行函数,其实就是匿名函数
+    (function (a,b) {
+        console.log("this is Once Execute Function");
+        console.log("a="+a);
+        console.log("b="+b);
+    })(123,789);
+
+    //函数作为对象的属性,因为函数本质上就是一种对象,所以函数也可以当作对象的属性
+    obj.name="xycode";
+    obj.sayName=function () {
+        console.log("I'm "+this.name);// -> I'm xycode, 这里的this就是obj
+    };
+    obj.sayName();
+
+    //函数隐含两个参数,this与arguments,this调用该函数的对象本身,arguments存放函数的参数
+    function func4(a,b,c){
+        console.log(this);
+        console.log(arguments);
+        console.log(arguments.callee);
+    }
+    func4(123,456,789);//等效于window.func4(...),所以这里的this指的是window
+    //Arguments的callee属性指向函数对象本身
+    //-> Window {parent: Window, opener: null, top: Window, length: 0, frames: Window, …}
+    //   Arguments(3) [123, 456, 789, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+    //  ƒ func4(a,b,c){
+    //      console.log(this,arguments,arguments.callee);
+    //      console.log(a+b+c);
+    //  }
+
+
+    obj.func4=func4;
+    obj.func4(11,22,33);//这里函数的调用者是obj,所以这里的this指的是obj
+    // -> {name: "xycode", age: 22, sayName: ƒ, func4: ƒ}
+    //    Arguments(3) [11, 22, 33, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+    //  ƒ func4(a,b,c){
+    //      console.log(this,arguments,arguments.callee);
+    //      console.log(a+b+c);
+    //  }
+
+
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>JSBasic6</title>
+</head>
+<body>
+
+</body>
+</html>

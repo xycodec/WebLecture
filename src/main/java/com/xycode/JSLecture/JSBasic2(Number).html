@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSBasic2</title>
+    <script type="text/javascript">
+        //Number()转换数字
+        var a=123.456;
+        console.log("Number:");
+        console.log(Number(a));
+        console.log(Number(null));// -> 0
+        console.log(Number(undefined));// -> NaN
+        console.log(Number(true));// -> 1,实际上不等于0的数都可以强制转换为true,这点和C语言类似
+        console.log(Number(false));// -> 0,数字0可以强制转换为false,null与undefined也可以强制转换为false
+
+        //parseInt(),parseFloat(),部分解析,从开头解析,直到遇到非法字符为止
+        console.log("parseInt:");
+        console.log(Number.parseInt("123px"));// -> 123
+        console.log(Number.parseInt("12e10"));// -> 12,parseInt()貌似不能解析科学记数法(e)
+
+        console.log("parseFloat:");
+        console.log(Number.parseFloat("11.32e3"));// -> 11320,parseFloat()能解析科学记数法(e)
+        console.log(Number.parseFloat("123.45ax6"));// -> 123.45
+        console.log(Number.parseFloat("12asd5.123"));// -> 12
+        console.log(Number.parseFloat("ade1234.322"));// -> NaN
+
+
+        //Boolean()转换布尔值
+        console.log("Boolean:");
+        console.log(Boolean(null));// -> false
+        console.log(Boolean(undefined));// -> false
+        //对于字符串来说,空字符串可以强转为false,非空字符串則会强转为true
+        console.log(Boolean("hello"));// -> true
+        console.log(Boolean(""));// -> false
+    </script>
+</head>
+<body>
+
+</body>
+</html>

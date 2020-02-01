@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JSBasic12</title>
+	<script type="text/javascript">
+
+		window.onload=function () {
+            //删除员工的函数
+            function delEmp(){
+                //tr是a的爷爷节点(a -> td -> tr),这里的this就是a节点
+                //这里的this不能用allHyperLink[i]替换,因为一开始加载会先执行循环,
+                // 循环执行结束后,点击事件才可能响应,此时响应的索引是从allHyperLink.length开始了
+                var tr=this.parentNode.parentNode;
+                var name=tr.children[0].innerHTML;
+                if(confirm("确认删除"+name+"?"))//弹出一个提示框
+                    tr.parentNode.removeChild(tr);
+            }
+
+		    //获取所有超链接节点对象
+			var allHyperLink=document.getElementsByTagName("a");
+			// console.log(allHyperLink.length);
+			//删除员工
+			for(let i=0; i<allHyperLink.length; ++i){
+			    allHyperLink[i].onclick=delEmp;
+			}
+
+			//添加员工
+			//获取添加按钮的对象
+			var addEmpBtn=document.getElementById("addEmpBtn");
+			addEmpBtn.onclick=function () {
+				var empName=document.getElementById("empName").value;
+                var empEmail=document.getElementById("empEmail").value;
+                var empSalary=document.getElementById("empSalary").value;
+                console.log(empName,empEmail,empSalary);
+				//tip 需要创建类似以下这样一个结构:
+            	// <tr>
+				// 	<td>Jerry</td>
+				// 	<td>jerry@gmail.com</td>
+				// 	<td>10000</td>
+				// 	<td><a href="javascript:;">delete</a></td>
+                // </tr>
+				var tr=document.createElement("tr");
+				tr.innerHTML+=	"<td>"+empName+"</td>"+
+								"<td>"+empEmail+"</td>"+
+								"<td>"+empSalary+"</td>"+
+								"<td><a href='javascript:;'>delete</a></td>";
+
+				var empTable=document.getElementById("empTable");
+                //tr中只有一个a节点,索引也就是0了
+                tr.getElementsByTagName("a")[0].onclick=delEmp;
+
+                //显然只有一个tbody,索引也就是0了
+				empTable.getElementsByTagName("tbody")[0].appendChild(tr);
+
+            }
+		}
+	</script>
+</head>
+<body>
+<!--	表格-->
+	<table id="empTable">
+<!--		thread: Table Header Row Group-->
+		<thead>
+<!--			th: Table Header Cells-->
+			<th>Name</th>
+			<th>Email</th>
+			<th>Salary</th>
+			<th>&nbsp;</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Tom</td>
+				<td>tom@163.com</td>
+				<td>9000</td>
+<!--				超链接默认会跳转,javascript:;"可以不让其跳转-->
+				<td><a href="javascript:;">delete</a></td>
+			</tr>
+			<tr>
+				<td>Jerry</td>
+				<td>jerry@gmail.com</td>
+				<td>10000</td>
+				<td><a href="javascript:;">delete</a></td>
+			</tr>
+			<tr>
+				<td>xycode</td>
+				<td>xycodec@gmail.com</td>
+				<td>25000</td>
+				<td><a href="javascript:;">delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+<!--		表格-->
+<h3>添加新员工</h3>
+<table>
+	<tr>
+		<td class="word">Name: </td>
+		<td class="inp">
+			<input type="text" id= "empName" placeholder="请输入姓名">
+		</td>
+	</tr>
+	<tr>
+		<td class="word">Email: </td>
+		<td class="inp">
+			<input type="email" id="empEmail" placeholder="请输入邮箱">
+		</td>
+	</tr>
+	<tr>
+		<td class="word">Salary: </td>
+		<td class="inp">
+			<input type="number" id="empSalary" placeholder="请输入薪水">
+		</td>
+	</tr>
+	<!--		提交按钮, value是按钮上的提示文字-->
+	<tr>
+		<td colspan="2" align="center">
+			<input type="submit" id="addEmpBtn" value="添加">
+		</td>
+	</tr>
+</table>
+
+
+</body>
+</html>

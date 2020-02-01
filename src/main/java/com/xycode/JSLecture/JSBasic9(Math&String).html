@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSBasic9</title>
+    <script type="text/javascript">
+        /*
+            Math:数学函数库
+         */
+        //随机数生成,random()返回一个[0,1)之间的随机浮点数,更复杂的随机数生成可以基于random()实现
+        console.log(Math.random());
+        console.log(parseInt(Math.random()*10+1)+10);// ->[10,20]
+        //max,min
+        console.log(Math.max(1,2,3,4,5),Math.min(1,2,3,4,5));// -> 5 1
+
+
+        //string对象的一些方法
+        var str="hello xycode";
+        console.log(typeof str.charAt(0));// -> string; 没有char这种东西
+        console.log(typeof str.charCodeAt(0));// -> number; 返回的实际上是对应的Unicode编码值
+        console.log(String.fromCharCode(0x2692));// -> ⚒; fromCharCode,根据给定的值,返回Unicode编码
+
+        console.log(str.indexOf("e"));// -> 1; 用法和java中的indexOf()基本一致
+        console.log(str.lastIndexOf("e"));// -> 11; indexOf()的last版本
+
+        console.log(str.substring(0,2));// -> he, 范围: [begin,end)
+        console.log(str.slice(0,-1));// -> hello xycod; 切片操作,-1表示最后一个索引,用法与python的切片操作基本一样
+
+        console.log(str.split("l"));// -> (2) ["he", "", "o xycode"]
+        console.log(str.split(""));// -> (12) ["h", "e", "l", "l", "o", " ", "x", "y", "c", "o", "d", "e"]
+        console.log(str.split("").join("-"));// -> h-e-l-l-o- -x-y-c-o-d-e; join()作用同python
+        // for(var i=0;i<str.length;++i){
+        //     console.log(i,str.charAt(i));
+        // }
+
+
+        /*
+            正则表达式
+            字面量创建方式:
+                /正则表达式/匹配模式
+             Object创建方式:
+                new RegExp("正则表达式","匹配模式")
+         */
+
+        var regex=/[abc]/;// 匹配 a or b or c
+        regex=new RegExp("a|b|c");
+        console.log(regex.test("asdfg"),regex.test("xnhjf"));// -> true false
+
+        //搭配split使用
+        console.log("123a4556c4545b545e442re323".split(/[a-z]/));
+        // -> ["123", "4556", "4545", "545", "442", "", "323"]
+
+        console.log("123a4556c4545b545e442Re323".match(/[a-z]/ig));//匹配模式i: (ignore)忽略大小写; g: (global)全局模式
+        // -> (6) ["a", "c", "b", "e", "R", "e"]
+
+        //匹配邮件的正则表达式
+        //结构大概是这样: 任意字母数字下划线.任意字母数字下划线@任意字母数字.任意字母（2-5位）.任意字母（2-5位） ...
+        // \w{3,30} (\.\w+)* @ [A-z0-9]+ (\.[A-z]{2,5}){1,2}
+        regex=/^\w{3,30}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,10}$/;
+        //^ :从字符串开头进行匹配; $ :匹配到字符串末尾
+        console.log(regex.test("201821010307@std.uestc.edu.cn"));// -> true
+        console.log(regex.test("xycodec.code@163.edu.cn.123"));// -> false
+    </script>
+</head>
+<body>
+
+</body>
+</html>

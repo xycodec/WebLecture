@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSBasic4</title>
+    <script type="text/javascript">
+        /*
+            if语句,用法和java相同
+         */
+        //prompt类似python中的input(...),效果是弹出一个带提示的输入框,并且返回输入的值
+        var score=Number(prompt("请输入分数: "));
+        if(isNaN(score)||score<0||score>100){
+            alert("输入有误");
+        }else{
+            if(score>90){
+                alert("优秀");
+            }else if(score>80){
+                alert("良好");
+            }else if(score>70){
+                alert("中等");
+            }else if(score>=60){
+                alert("及格");
+            }else alert("不及格");
+
+            //等效的switch语句的写法
+            switch (true) {
+                case score>90:
+                    console.log("优秀");
+                    break;
+                case score>80:
+                    console.log("良好");
+                    break;
+                case score>70:
+                    console.log("中等");
+                    break;
+                case score>60:
+                    console.log("及格");
+                    break;
+                default:
+                    console.log("不及格");
+                    break;
+            }
+
+            //for循环语句,用法与java基本相同
+            // for (var i=0; i<=score; ++i){
+            //     if(i%2===0) document.writeln(i+"</br>");//</br>标签是html的body中的换行符
+            // }
+
+            //while循环语句,用法与java基本相同
+            console.log("while: ");
+            var i=0;
+            while(i<=score){
+                console.log(i++);
+            }
+
+            //do{...}while语句的用法
+            console.log("do ... while:");
+            i=0;
+            do{
+                console.log(i++);
+            }while(i<=score)
+        }
+
+        //打印2~100000之间的所有质数,这里采用朴素的枚举法O(n*sqrt(n)),其实还有更高效的有筛法
+        //let关键字可以限制变量的作用域为循环内部,外部就不可访问
+        for(let i=2;i<=100000;++i){
+            let flag = true;
+            for(let j=2; j<=Math.sqrt(i); ++j){
+                if(i%j===0){//有多余的因子,说明不是素数
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag) document.writeln(i+"</br>");
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

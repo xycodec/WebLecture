@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JSBasic14</title>
+<!--	内联方式设置样式表-->
+	<style type="text/css">
+		#box1{
+			width: 200px;
+			height: 200px;
+			background-color: aliceblue;
+		}
+		#s1{
+			background-color: antiquewhite;
+		}
+		body{
+			background-color: beige;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function () {
+		    var box1=document.getElementById("box1");
+		    var s1=document.getElementById("s1");
+			document.body.onclick=function () {
+				alert("body click event");
+            };
+
+            //当点击box1区域时, box1 ->　body
+			box1.onclick=function () {
+				alert("box1 click event");
+            };
+			//tip: 事件传递机制(由内往外传播,"冒泡机制")
+			//当点击s1区域时, s1 -> box1 ->　body; 这就是事件的传递
+			//要想阻断这种传递,设置event.cancelBubble=true,这里的event是浏览器传递进来的事件参数
+			//这种机制也有其妙用,例如给父元素绑定一个响应函数,当触发其子元素时,这种传递机制会保证触发到父元素的响应函数,
+			//如果想区分触发到的各个元素,使用event.target来区分
+            s1.onclick=function (event) {
+				alert("span click event");
+				event.cancelBubble=true;
+				// console.log(event.target.id);// -> s1
+            };
+
+        }
+	</script>
+
+</head>
+<body>
+	<div id="box1">
+		this is box1
+		<span id="s1">this is span</span>
+	</div>
+
+</body>
+</html>

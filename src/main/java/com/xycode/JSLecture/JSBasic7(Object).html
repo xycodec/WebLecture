@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSBasic7</title>
+    <script type="text/javascript">
+        var obj={
+            "name":"xycode",
+            "age":22,
+            "gender":"male"
+        };
+
+        //枚举对象的属性,和python中的dict用法基本一致
+        function enumerateObj(obj) {
+            for (var key in obj){
+                console.log(key,obj[key]);
+            }
+        }
+
+        enumerateObj(obj);
+
+        //在全局作用域中,创建的变量都会作为windows对象的属性保存(包括函数对象)
+        console.log(window.obj);// -> {name: "xycode", age: 22, gender: "male"}
+        console.log("window: ");
+        window.enumerateObj(obj);//通过window对象来调用定义的函数
+
+        console.log(this===window);// -> true; 全局的this就是window,在对应Object内的this指的就是相应的对象,这个和java类似
+
+        /*
+            构造函数,调用方式与普通函数略有区别,格式为: new Constructor();
+            这种方式其实变相起到了java中class关键字的作用
+            通过这种方式定义的对象,都是Object的子类,这点和java类似
+         */
+
+        function Person(name,age,gender){
+            this.name=name;
+            this.age=age;
+            this.gender=gender;
+            this.sayHello=function () {
+                console.log("I'm "+name);
+            };
+        }
+
+        var person=new Person("xycode",22,"male");
+        console.log(person);// -> Person {name: "xycode", age: 22, gender: "male", sayHello: ƒ}
+
+        person.sayHello();// -> I'm xycode
+
+
+        //prototype属性,每个object都对应一个prototype,但是对于同一种class,prototype只有一份,多个实例共享
+        //作用有点类似java中的static
+        console.log("prototype:");
+        console.log(Person.prototype===person.__proto__);// -> true, 两种访问方式,通过类名/实例
+        var person2=new Person("xuyan",22,"male");
+        console.log(person.__proto__===person2.__proto__);// -> true
+
+        //给prototype添加一个数据
+        Person.prototype.comment="this is prototype comment";
+        console.log(person.hasOwnProperty("age"),person.hasOwnProperty("comment"));//hasOwnProperty()用于检查是否存在某个属性(不包含prototype), -> true false
+        console.log(person.comment,"|",person2.comment);// -> this is prototype comment | this is prototype comment
+        /*
+        *原型(prototype)对象也是对象，所以它也有原型，
+        *当我们使用一个对象的属性或方法时，会现在自身中寻找，
+        *自身中如果有，则直接使用，
+        *如果没有则去原型对象中寻找，如果原型对象中有，则使用，
+        *如果没有则去原型的原型中寻找，直到找到Object对象的原型，
+        *object对象的原型没有原型，如果在object中依然没有找到,則返回null
+        */
+    </script>
+</head>
+<body>
+
+</body>
+</html>

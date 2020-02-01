@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSBasic10</title>
+</head>
+<body>
+<!--    <button id="button1" onclick="alert('嵌入的点击事件');">this is button1</button>-->
+    <div id="outer">
+        <p id="info"></p>
+        <img src="imgs/2.jpg" alt="图片"/>
+        <button id="prev">上一张</button>
+        <button id="next">下一张</button>
+    </div>
+    <script type="text/javascript">
+        /*
+            DOM: 文档对象模型（Document Object Model）。
+            它是一种与平台和语言无关的应用程序接口(API),它可以动态地访问并修改页面内容
+            对应到JS中就是document对象
+         */
+        // console.log(document);// -> #document
+        // var btn=document.getElementById("button1");
+        // console.log(btn);// -> button#button1
+        // //通过函数方式来添加点击事件,直接嵌入到页面元素的方式不利于维护
+        // btn.onclick=function () {
+        //     alert("新的点击事件");//alert('嵌入的点击事件');被覆盖掉了,因为JS是从上往下执行的
+        // };
+
+        //页面加载事件
+        //图片切换练习
+        window.onload=function () {
+            alert("页面加载完成");
+            var prev=document.getElementById("prev");
+            var next=document.getElementById("next");
+            var img=document.getElementsByTagName("img")[0];
+            var info=document.getElementById("info");
+            var jpgIndex=1,total=3;
+            info.innerHTML="一共"+total+"张图片,当前第"+jpgIndex+"张";
+            prev.onclick=function () {
+                if(jpgIndex<1) jpgIndex=total;
+                if(jpgIndex>total) jpgIndex=1;
+                img.src="imgs/"+jpgIndex+".jpg";
+                info.innerHTML="一共"+total+"张图片,当前第"+jpgIndex+"张";
+                console.log(img.src);
+                --jpgIndex;
+            };
+
+            next.onclick=function () {
+                if(jpgIndex<1) jpgIndex=total;
+                if(jpgIndex>total) jpgIndex=1;
+                img.src="imgs/"+jpgIndex+".jpg";
+                info.innerHTML="一共"+total+"张图片,当前第"+jpgIndex+"张";
+                console.log(img.src);
+                ++jpgIndex;
+            }
+        };
+        
+    </script>
+</body>
+</html>

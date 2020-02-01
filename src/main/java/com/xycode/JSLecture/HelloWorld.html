@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <!--引用外部JS,指定src, 这样的话script体里面写的JS代码就不会被执行了,如果有需要可以新建一个新的script标签来执行内部的JS-->
+    <script type="text/javascript" src="HelloWorld.js">
+        /*
+        让浏览器弹出一个警告框
+         */
+        alert("this is first JS App from xycode");
+        document.writeln("你好");//往html的body写入指定字段,效果就是会在网页中显示
+        console.log("这是控制台");//在控制台打印消息
+    </script>
+
+    <!--新建script标签来执行内部JS-->
+    <script type="text/javascript">
+        /*
+        让浏览器弹出一个警告框
+         */
+        alert("this is first JS App from xycode");
+        document.writeln("你好");//往html的body写入指定字段
+        console.log("执行内部JS");//在控制台打印消息
+    </script>
+
+</head>
+
+<body>
+    <!--    可以将js代码嵌入到标签的onclick属性,标签的超链接中href-->
+    <!--不过这种嵌入方式不便于维护...-->
+    <button onclick="alert('this is js in button');">请点击</button>
+    <a href="javascript:alert('this is js in href');">也请点击这里</a>
+</body>
+</html>

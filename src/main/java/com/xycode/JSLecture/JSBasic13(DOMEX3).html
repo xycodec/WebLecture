@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JSBasic13</title>
+<!--	内联方式设置样式表-->
+	<style type="text/css">
+		#info{
+			width: 500px;
+			height: 400px;
+			background-color: azure;
+			overflow: auto;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function () {
+		    //获取id为info的p标签
+			var info=document.getElementById("info");
+			var agreeBox=document.getElementById("agreeBox");
+			var registerBox=document.getElementById("registerBox");
+			//滚动条的触发事件
+			info.onscroll=function () {
+				// console.log("滚动事件");
+				// console.log(parseInt(info.scrollHeight-info.scrollTop));//这里默认是浮点类型,因此要转成整型
+				if(parseInt(this.scrollHeight-this.scrollTop)===this.clientHeight){
+				    console.log("滚动到底啦!");
+					agreeBox.disabled=false;
+				    registerBox.disabled=false;
+				}else{
+                    agreeBox.disabled=true;
+                    registerBox.disabled=true;
+				}
+            };
+
+			registerBox.onclick=function () {
+				if(!agreeBox.disabled){
+				    if(agreeBox.checked){
+                        if(confirm("确认注册?")) alert("注册成功!");
+					}else{
+				        alert("请先阅读完协议并同意");
+					}
+				}
+            }
+            //document.documentElement: Gets a reference to the root node of the document.
+        }
+
+	</script>
+</head>
+<body>
+	<h3 style="color: red">注册须知:</h3>
+	<p id="info">
+		<strong>无保证声明:</strong>
+		本网站所载信息和资料（包括但不限于服务、产品、信息、数据、文本、图片、音频、连接等）均如实提供。大华中国不保证此类信息和资料的真实性、正确性、充分性、完整性或合理性，并明确声明对此类信息和资料中所含错误或遗漏不负任何责任。
+
+		本网站及其所载内容（包括任何通往第三方网站的链接）均未给予任何明示、暗示或法定保证，包括但不限于任何对于所有权、未侵犯第三方权利、适销性、质量令人满意、适合用于某一特定用途以及不含病毒（包括电脑病毒、其他 污染物、其他 恶意的、破坏性的编码、程序或宏命令）的保证。
+		在不违背任何本网站所载内容的前提下，大华中国不以任何方式对任何因以下原因引起或与以下原因有关的损坏、损失或费用（包括但不限于直接的、间接的、特殊的或引致性的损坏或经济损失）负责，即使大华中国或其代理或员工已得知可能发生此类损坏、损失和/或费用：
+<!--		br: Line Break-->
+		<br>
+		<strong>免责声明:</strong>
+		在不违背任何本网站所载内容的前提下，大华中国不以任何方式对任何因以下原因引起或与以下原因有关的损坏、损失或费用（包括但不限于直接的、间接的、特殊的或引致性的损坏或经济损失）负责，即使大华中国或其代理或员工已得知可能发生此类损坏、损失和/或费用：
+		1.对本网站的任何访问、使用或无法访问、使用，以及对本网站所载内容的使用或依赖；
+		2.在本网站任何网页上操作的任何交易；
+		3.信息（包括客户信息）的遗失、滥用或未经许可被泄露；
+		4.任何系统、服务器或连接的故障、出错、遗漏、中断、拦截、操作或传输延迟、或电脑病毒；
+		5.对链接至本网站的任何其他网站的任何访问或使用；
+		6.从本网站或链接至本网站的任何其他网站获得的任何服务、产品、信息、数据、软件或其他资料。 本免责条款在法律允许的范围内有效。
+		<br>
+		<strong>准据法和管辖权:</strong>
+		访问本网站和/或使用通过本网站提供的银行服务即视为您同意此类访问行为以及银行所提供的服务应受中华人民共和国法律的管辖，且同意接受中华人民共和国法庭的非排他性司法管辖。
+
+		如果您所在司法管辖区的法律不允许访问或对访问本网站的内容有所限制，您应立即终止访问或遵守此类限制（视情况而定）。
+	</p>
+<!--	disabled属性,用于设置表单项是否可用-->
+	<input type="checkbox" id=agreeBox disabled="disabled">我阅读以上协议,已同意
+	<input type="submit" id="registerBox" value="注册" disabled="disabled">
+
+</body>
+</html>

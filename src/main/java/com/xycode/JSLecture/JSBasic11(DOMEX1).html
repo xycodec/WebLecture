@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JSBasic11</title>
+	<script type="text/javascript">
+		window.onload=function () {
+			//获取按钮对象
+            var selectAllBtn=document.getElementById("selectAllBtn");
+            var selectAllNoNtn=document.getElementById("selectAllNoNtn");
+            var selectReverseBtn=document.getElementById("selectReverseBtn");
+            var submitBtn=document.getElementById("submitBtn");
+            //获取选项框对象
+            var items=document.getElementsByName("items");
+            var selectCnt=0;
+            //全选
+            selectAllBtn.onclick=function () {
+                for (let i=0;i<items.length;++i){
+                    items[i].checked=true;
+				}
+				selectCnt=items.length;
+            };
+
+            //全不选
+            selectAllNoNtn.onclick=function () {
+                for (let i=0; i<items.length; ++i){
+                    items[i].checked=false;
+                }
+                selectCnt=0;
+            };
+
+            //反选
+			selectReverseBtn.onclick=function () {
+                for (let i=0; i<items.length; ++i){
+                    items[i].checked=!items[i].checked;
+                }
+                selectCnt=items.length-selectCnt;
+                console.log(selectCnt);
+                if(selectCnt===items.length) selectAllBox.checked=true;
+                else selectAllBox.checked=false;
+            };
+
+            //提交
+			submitBtn.onclick=function () {
+			    var result="你喜欢的运动是: ";
+                for (let i=0; i<items.length; ++i){
+                    if(items[i].checked) result+=items[i].value+" ";
+                }
+                alert(result);
+            };
+
+			//全选/反选框
+            var selectAllBox=document.getElementById("checkedAllBox");
+			selectAllBox.onclick=function () {
+                for (let i=0; i<items.length; ++i){
+                    //这里的this就是selectAllBox对象
+                    items[i].checked=this.checked;
+                }
+            };
+
+            for(let i=0;i<items.length;++i){
+                items[i].onclick=function () {
+					if(this.checked) ++selectCnt;//选中
+					else --selectCnt;//取消选中
+					console.log(selectCnt);
+					if(selectCnt===items.length) selectAllBox.checked=true;
+					else selectAllBox.checked=false;
+                }
+			}
+
+		}
+	</script>
+</head>
+<body>
+<!--	表单-->
+	<form method="post" action="">
+		你喜欢的运动是<input type="checkbox" id="checkedAllBox">全选/全不选
+		<br/>
+		<input type="checkbox" name="items" value="足球">足球
+		<input type="checkbox" name="items" value="篮球">篮球
+		<input type="checkbox" name="items" value="羽毛球">羽毛球
+		<input type="checkbox" name="items" value="乒乓球">乒乓球
+		<br/>
+		<input type="button" id="selectAllBtn" value="全选">
+		<input type="button" id="selectAllNoNtn" value="全不选">
+		<input type="button" id="selectReverseBtn" value="反选">
+		<input type="button" id="submitBtn" value="提交">
+	</form>
+</body>
+</html>

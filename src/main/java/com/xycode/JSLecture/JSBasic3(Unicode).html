@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSBasic3</title>
+    <script>
+        //输出Unicode编码,\u转义Unicode
+        console.log("\u0031");//1对应的Unicode码,这里是十六进制的值
+        console.log("\u2620");
+        document.writeln("\u0031")
+
+        /*
+            相等关系判断:
+                == / != : 等于/不等于,会自动做类型转换
+                === / !== : 全等/不全等,不会做自动类型转换
+         */
+        console.log(123=="123");// -> true,这里将"123"转换为了数字123
+        console.log(123==="123");// -> false,没有自动转换
+
+        /*
+            三元条件运算符, 格式: condition?statement1:statement2
+            和java用法相同,不过JS可以在statement中继续嵌套三元条件语句,而java不可以
+            eg: max(a,b,c) --> a>b?(a>c?a:c):(b>c?b:c);
+         */
+        var a=100,b=50,c=30;
+
+        a>b?console.log("a>b"):console.log("a<=b");
+
+        console.log(a>b?(a>c?a:c):(b>c?b:c));//语义: max(a,b,c)
+
+
+        /*
+            代码块: {...},JS的代码块只有分组的作用,没有单独的作用域,这点和java不同
+         */
+        {
+            var d=Number.MAX_VALUE;
+        }
+
+        console.log(d);//外部可以访问到代码块内部的变量
+
+    </script>
+</head>
+<body>
+    <!-- 这里若要使用Unicode,需要使用十进制,注意转换. 0x2620 = 9760 -->
+    <h1 style="font-size: 100px">&#9760;</h1>
+</body>
+</html>

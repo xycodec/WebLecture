@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JSBasic17</title>
+<!--	内联方式设置样式表-->
+	<style type="text/css">
+		#count{
+			font-size: 20px;
+		}
+
+		#count span{
+			color: coral;
+		}
+
+		#startBtn{
+			width: 60px;
+			height: 30px;
+			background-color: cadetblue;
+		}
+		#stopBtn{
+			width: 60px;
+			height: 30px;
+			background-color: darkgray;
+		}
+	</style>
+	<script type="text/javascript">
+
+		window.onload=function () {
+
+			var startBtn=document.getElementById("startBtn");
+			var stopBtn=document.getElementById("stopBtn");
+            var count=document.getElementById("count");
+
+
+            //将添加定时器事件封装成一个函数,这种方式将timerIndex存储到对象内部,而不用共享变量
+            function addTimerEvent(obj,timeout,f){
+                obj.onclick=function(){
+                    //开启定时器之前最好将之前的关闭,因为如果连续多次点击按钮会激活多个定时器
+                    //并且还会导致丢失定时器的索引,最后无法关闭之
+                    clearInterval(this.timerIndex);
+                    this.timerIndex=setInterval(function () {
+						f();
+                    },timeout);//setInterval会周期性地调用function,间隔的时间单位为ms
+                };
+			}
+
+            var cnt=0;
+            addTimerEvent(startBtn,1000,function () {
+                count.innerHTML="<span>计数器: </span>\n" +
+                    (++cnt) +
+                    "<span> s</span>";
+                // console.log(count.innerHTML,"|",count.innerText);
+            });
+
+            stopBtn.onclick=function(){
+                clearInterval(startBtn.timerIndex);//根据索引清除特定的定时器
+            };
+
+
+			// var timerIndex;
+		    // startBtn.onclick=function(){
+		    //     //开启定时器之前最好将之前的关闭,因为如果连续多次点击按钮会激活多个定时器
+			// 	//并且还会导致丢失定时器的索引,最后无法关闭之
+		    //     // clearInterval(timerIndex);
+            //     timerIndex=setInterval(function () {
+			// 		count.innerHTML="<span>计数器: </span>\n" +
+			// 			(++cnt) +
+			// 			"<span> s</span>";
+			// 		console.log(count.innerHTML,"|",count.innerText);
+            //     },1000);//setInterval会周期性地调用function,间隔的时间单位为ms
+            // };
+			//
+		    // stopBtn.onclick=function(){
+            //     clearInterval(timerIndex);//根据索引清除特定的定时器
+            // };
+
+
+		    //setTimeout是延迟调用,其只会在特定timeout时间后调用一次
+		    // setTimeout(function () {
+			//
+            // },1000);
+			// clearTimeout();
+        }
+
+	</script>
+</head>
+<body>
+	<h3 id="count">
+		<span>计数器: </span>
+		0
+		<span> s</span>
+	</h3>
+	<button id="startBtn">开始</button>
+	<br><br>
+	<button id="stopBtn">停止</button>
+
+</body>
+</html>
