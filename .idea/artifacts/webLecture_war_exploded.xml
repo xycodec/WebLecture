@@ -2,12 +2,25 @@
   <artifact type="exploded-war" name="webLecture:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/webLecture_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="webLecture/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="webLecture" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.alibaba:druid:1.1.11" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.2.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.2.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:5.2.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.2.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.2.2.RELEASE" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.17" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+          <element id="library" level="project" name="Maven: org.testng:testng:6.14.3" />
+          <element id="library" level="project" name="Maven: com.beust:jcommander:1.72" />
+          <element id="library" level="project" name="Maven: org.apache-extras.beanshell:bsh:2.0b6" />
+        </element>
       </element>
+      <element id="javaee-facet-resources" facet="webLecture/web/Web" />
     </root>
   </artifact>
 </component>
