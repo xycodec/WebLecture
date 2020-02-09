@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!--    配置Spring IOC-->
+    <bean id="accountService" class="com.xycode.springLecture.aopEX.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+    </bean>
+<!--    这里的AccountDaoImpl2继承了JdbcDaoSupport,所以这里只需配置dataSource即可,而不用配置jdbcTemplate
+        因为JdbcDaoSupport中已经定义了jdbcTemplate,并且还定义了dataSource的set方法-->
+    <bean id="accountDao" class="com.xycode.springLecture.aopEX.impl.AccountDaoImpl2">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">
+        <!--        构造函数注入数据源,因为这是jar包中的类,没有set方法,所以通过构造函数的方式来注入,JdbcTemplate有这样的构造器-->
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <!--    tip: 指定配置文件的路径,前缀classpath代表类路径,与ClassLoader方式读取类似-->
+    <context:property-placeholder location="classpath:druid.properties" system-properties-mode="FALLBACK"/>
+    <!--    数据源bean,这里使用DruidDataSource-->
+    <!--    warn: username貌似默认会读到电脑的用户名而不是配置文件中的值,加上system-properties-mode="FALLBACK"就可以了(或者不用username这个key)-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${driverClassName}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+
+<!--    开启AOP注解支持-->
+    <aop:aspectj-autoproxy/>
+
+<!--    配置spring的事务管理器-->
+    <bean id="springTsManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+<!--    配置spring的事务管理器的通知
+    rollback-for:指定回滚的异常,如果不指定,默认回滚任何异常; no-rollback-for作用相反
+    Propagation:
+        REQUIRED（默认值）：在有transaction状态下执行；如当前没有transaction，则创建新的transaction；
+        SUPPORTS：如当前有transaction，则在transaction状态下执行；如果当前没有transaction，在无transaction状态下执行；
+        MANDATORY：必须在有transaction状态下执行，如果当前没有transaction，则抛出异常IllegalTransactionStateException；
+        REQUIRES_NEW：创建新的transaction并执行；如果当前已有transaction，则将当前transaction挂起；
+        NOT_SUPPORTED：在无transaction状态下执行；如果当前已有transaction，则将当前transaction挂起；
+        NEVER：在无transaction状态下执行；如果当前已有transaction，则抛出异常IllegalTransactionStateException。
+
+    read-only:指定是否只读,默认为false
+-->
+    <tx:advice id="txAdvice" transaction-manager="springTsManager">
+        <tx:attributes>
+            <!--            findXXX()方法通配,优先级更高-->
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true" rollback-for="java.lang.Exception"/>
+            <!--            其它的方法, 全通配; no-rollback-for="java.lang.Exception"相当于不对任何Exception进行回滚-->
+<!--            <tx:method name="*" no-rollback-for="java.lang.Exception"/>-->
+            <tx:method name="*" rollback-for="java.lang.Exception"/>
+        </tx:attributes>
+    </tx:advice>
+<!--    配置AOP-->
+    <aop:config>
+        <aop:pointcut id="pt" expression="execution(* com.xycode.springLecture.aopEX.impl.AccountServiceImpl.*(..))"/>
+
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pt"/>
+    </aop:config>
+</beans>

@@ -26,6 +26,28 @@
         </sourceRoots>
       </configuration>
     </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="FirstBeans" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/firstBeans.xml</file>
+        </fileset>
+        <fileset id="fileset2" name="AnnotationBeans" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/annotationBeans.xml</file>
+        </fileset>
+        <fileset id="fileset3" name="AccountEX" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/com/xycode/springLecture/serviceImpl/accountEX.xml</file>
+        </fileset>
+        <fileset id="fileset4" name="AccountEX (2)" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/accountEX.xml</file>
+        </fileset>
+        <fileset id="fileset5" name="AopEX" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/aopEX.xml</file>
+        </fileset>
+        <fileset id="fileset6" name="AopTsEX" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/aopTsEX.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
@@ -45,11 +67,21 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-core:5.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.2.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.2.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.2.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.17" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.6.1" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.2" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.11" level="project" />
     <orderEntry type="library" name="Maven: org.testng:testng:6.14.3" level="project" />
     <orderEntry type="library" name="Maven: com.beust:jcommander:1.72" level="project" />
     <orderEntry type="library" name="Maven: org.apache-extras.beanshell:bsh:2.0b6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
+    <orderEntry type="library" name="Maven: cglib:cglib:3.2.5" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm:6.0_ALPHA" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ant:ant:1.9.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.9.6" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.2" level="project" />
   </component>
 </module>

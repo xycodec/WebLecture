@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.xycode.springLecture"/>
+<!--    tip: 通过注解,替代了下面的配置-->
+<!--    配置Service-->
+    <bean id="accountService" class="com.xycode.springLecture.accountEx.impl.AccountServiceImpl">
+<!--        set方式注入Dao-->
+        <property name="accountDao" ref="accountDao"/>
+    </bean>
+<!--    accountDao的实现bean-->
+    <bean id="accountDao" class="com.xycode.springLecture.accountEx.impl.AccountDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+<!--    fixme: 这里用注解替代时,对于Druid数据库连接池来说,产生了连接错误,原因未知???(已找到,是username的原因!!!)-->
+<!--    配置数据库连接模板-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">
+<!--        构造函数注入数据源,因为这是jar包中的类,没有set方法,所以通过构造函数的方式来注入,JdbcTemplate有这样的构造器-->
+        <constructor-arg ref="dataSource"/>
+    </bean>
+    <!--    指定配置文件的路径,前缀classpath代表类路径,与ClassLoader方式读取类似-->
+<!--    warn: username貌似默认会读到电脑的用户名而不是配置文件中的值,加上system-properties-mode="FALLBACK"就可以了(或者不用username这个key)-->
+    <context:property-placeholder location="classpath:druid.properties" system-properties-mode="FALLBACK"/>
+<!--    数据源bean,这里使用DruidDataSource-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+</beans>

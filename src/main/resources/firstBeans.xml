@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    普通的配置方式(直接指定全类名), 缺点: 仅适用于bean类有空构造器的情况
+    scope指定作用范围:prototype表示多例,singleton表示单例(默认)
+-->
+    <bean id="appServiceWithoutArgs" class="com.xycode.springLecture.demos.serviceImpl.AppServiceImpl" scope="prototype"
+          init-method="init" destroy-method="destroy"/>
+
+<!--    静态工厂方式, 无需考虑构造器的情况,(有/无参构造器)统统在静态工厂方法中考虑-->
+    <bean id="appServiceWithFactory" class="com.xycode.springLecture.demos.factory.ServiceFactory" scope="prototype"
+          factory-method="getAppServiceWithArgs"/>
+
+<!--    dependency inspect,构造函数注入(有参构造器)-->
+    <bean id="constructorDI" class="com.xycode.springLecture.demos.serviceImpl.AppServiceImpl" scope="prototype">
+        <constructor-arg name="name" type="java.lang.String" value="beta"/>
+    </bean>
+
+<!--    set方式注入,需要bean类实现对应setXXX方法,对于复杂类型可以另定义一个bean,然后再ref引用-->
+    <bean id="setDI" class="com.xycode.springLecture.demos.serviceImpl.AppServiceImpl" scope="prototype">
+        <property name="name" value="gamma"/>
+        <property name="birthday" ref="Date"/>
+    </bean>
+
+    <bean id="Date" class="java.util.Date" scope="prototype"/>
+
+
+</beans>

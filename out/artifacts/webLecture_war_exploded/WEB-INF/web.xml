@@ -6,11 +6,11 @@
 
 <!--    <servlet>-->
 <!--        <servlet-name>demo1</servlet-name>-->
-<!--        <servlet-class>com.xycode.firstServlet.servletDemo1</servlet-class>-->
+<!--        <servlet-class>com.xycode.servletLecture.firstServlet.servletDemo1</servlet-class>-->
 <!--        &lt;!&ndash; 通过load-on-startup字段指定servlet在服务器启动时触发init() &ndash;&gt;-->
 <!--        <load-on-startup>2</load-on-startup>-->
 <!--    </servlet>-->
-<!--    -->
+
 <!--    <servlet-mapping>-->
 <!--        <servlet-name>demo1</servlet-name>-->
 <!--        &lt;!&ndash;  注意路径名前要有/  &ndash;&gt;-->
