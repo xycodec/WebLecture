@@ -1,4 +1,4 @@
-package com.xycode.springLecture.accountEX;
+package com.xycode.springLecture.aopAnnotationEX;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
-package com.xycode.springLecture.accountEX.dao;
+package com.xycode.springLecture.accountAnnotationEX.dao;
 
-import com.xycode.springLecture.accountEX.Account;
+import com.xycode.springLecture.accountAnnotationEX.Account;
 
 import java.util.List;
 

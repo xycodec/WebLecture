@@ -1,6 +1,5 @@
-package com.xycode.springLecture.aopEX.impl;
+package com.xycode.springLecture.aopEX.impl.ts;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -21,7 +20,7 @@ public class TransactionManager {
     public void startTransaction(){
         try {
             //禁用自动提交,让TransactionManager来管理事务
-            System.out.println("startTransaction:");
+            System.out.println("--> startTransaction");
             connectionUtils.getConnection().setAutoCommit(false);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -31,7 +30,7 @@ public class TransactionManager {
     //提交事务
     public void commit(){
         try {
-            System.out.println("commit:");
+            System.out.println("--> commit");
             connectionUtils.getConnection().commit();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,7 +40,7 @@ public class TransactionManager {
     //回滚事务
     public void rollback(){
         try {
-            System.out.println("rollback:");
+            System.out.println("--> rollback");
             connectionUtils.getConnection().rollback();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,7 +50,7 @@ public class TransactionManager {
     //终止事务(释放连接)
     public void release(){
         try {
-            System.out.println("release:");
+            System.out.println("--> release");
             connectionUtils.getConnection().close();
             //tip: 这里的close实际上并不是真正的关闭,而是将连接放回到连接池中,所以这里需要手动解除Connection与线程的关系
             connectionUtils.removeConnection();

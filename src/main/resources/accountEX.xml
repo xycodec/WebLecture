@@ -5,14 +5,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="com.xycode.springLecture"/>
-<!--    tip: 通过注解,替代了下面的配置-->
 <!--    配置Service-->
-    <bean id="accountService" class="com.xycode.springLecture.accountEx.impl.AccountServiceImpl">
+    <bean id="accountService" class="com.xycode.springLecture.accountEX.impl.AccountServiceImpl">
 <!--        set方式注入Dao-->
         <property name="accountDao" ref="accountDao"/>
     </bean>
 <!--    accountDao的实现bean-->
-    <bean id="accountDao" class="com.xycode.springLecture.accountEx.impl.AccountDaoImpl">
+    <bean id="accountDao" class="com.xycode.springLecture.accountEX.impl.AccountDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 

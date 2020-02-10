@@ -1,13 +1,17 @@
-package com.xycode.springLecture.aopEX.impl;
+package com.xycode.springLecture.aopAnnotationEX.impl;
 
-import com.xycode.springLecture.aopEX.Account;
-import com.xycode.springLecture.aopEX.dao.IAccountDao;
-import org.springframework.dao.support.DaoSupport;
+import com.xycode.springLecture.aopAnnotationEX.Account;
+import com.xycode.springLecture.aopAnnotationEX.dao.IAccountDao;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,14 +25,18 @@ import java.util.List;
  * @Description: this is description of the AccountDaoImpl class
  **/
 //数据访问层的具体实现
-//JdbcDaoSupport是spring提供的通用Dao,继承它之后可以省掉一些setter/getter代码
-//因为JdbcDaoSupport中已经定义了jdbcTemplate,并且还定义了dataSource的set方法,所以这里只需添加一项dataSource,然后配置注入即可
-public class AccountDaoImpl2 extends JdbcDaoSupport implements IAccountDao {
-    private DataSource dataSource;
+//warn: 注解方式最好不要和JdbcDaoSupport一起使用,包中的jdbcTemplate变量使用注解不好注入
+@Repository("com.xycode.springLecture.aopAnnotationEX.impl.accountDao")
+@ComponentScan(basePackages = "com.xycode.springLecture.aopAnnotationEX.config")
+@Transactional(propagation = Propagation.REQUIRED)//Transactional注解:配置事务管理器
+public class AccountDaoImpl implements IAccountDao {
+    //notice: 这里因为idea检测机制的问题,显示错误,其实是没错的
+    @Resource(name = "com.xycode.springLecture.aopAnnotationEX.config.jdbcTemplate")
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Account> findAllAccount() {
-        List<Account> result=super.getJdbcTemplate().query("select * from account", new RowMapper<Account>() {
+        List<Account> result=jdbcTemplate.query("select * from account", new RowMapper<Account>() {
             @Override
             public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Account(rs.getInt("id"),
@@ -42,25 +50,25 @@ public class AccountDaoImpl2 extends JdbcDaoSupport implements IAccountDao {
 
     @Override
     public Account findAccountByID(int id) {
-        Account result=super.getJdbcTemplate().queryForObject("select * from account where id=?",new BeanPropertyRowMapper<>(Account.class),id);
+        Account result=jdbcTemplate.queryForObject("select * from account where id=?",new BeanPropertyRowMapper<>(Account.class),id);
         return result;
     }
 
     @Override
     public void addAccount(Account account) {
-        super.getJdbcTemplate().update("insert into account values (?,?,?,?)",account.getId(),
+        jdbcTemplate.update("insert into account values (?,?,?,?)",account.getId(),
                 account.getUsername(),account.getPassword(),account.getMoney());
     }
 
     @Override
     public void updateAccount(Account account) {
-        super.getJdbcTemplate().update("update account set username=?,password=?,money=? where id=?",account.getUsername(),
+        jdbcTemplate.update("update account set username=?,password=?,money=? where id=?",account.getUsername(),
                 account.getPassword(),account.getMoney(),account.getId());
     }
 
     @Override
     public void deleteAccount(int id) {
-        super.getJdbcTemplate().update("delete from account where id=?",id);
+        jdbcTemplate.update("delete from account where id=?",id);
     }
 
     @Override

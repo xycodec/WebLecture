@@ -1,6 +1,6 @@
-package com.xycode.springLecture.accountEX.service;
+package com.xycode.springLecture.aopAnnotationEX.service;
 
-import com.xycode.springLecture.accountEX.Account;
+import com.xycode.springLecture.aopAnnotationEX.Account;
 
 import java.util.List;
 
@@ -22,4 +22,5 @@ public interface IAccountService {
 
     void deleteAccount(int id);
 
+    void transfer(int srcID, int dstID, float money);
 }

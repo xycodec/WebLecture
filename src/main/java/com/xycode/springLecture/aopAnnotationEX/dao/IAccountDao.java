@@ -1,6 +1,6 @@
-package com.xycode.springLecture.accountEX.dao;
+package com.xycode.springLecture.aopAnnotationEX.dao;
 
-import com.xycode.springLecture.accountEX.Account;
+import com.xycode.springLecture.aopAnnotationEX.Account;
 
 import java.util.List;
 
@@ -22,4 +22,6 @@ public interface IAccountDao{
     void updateAccount(Account account);
 
     void deleteAccount(int id);
+
+    void transfer(int srcID, int dstID, float money);
 }

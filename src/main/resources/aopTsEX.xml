@@ -15,13 +15,14 @@
     </bean>
 <!--    这里的AccountDaoImpl2继承了JdbcDaoSupport,所以这里只需配置dataSource即可,而不用配置jdbcTemplate
         因为JdbcDaoSupport中已经定义了jdbcTemplate,并且还定义了dataSource的set方法-->
-    <bean id="accountDao" class="com.xycode.springLecture.aopEX.impl.AccountDaoImpl2">
+    <bean id="accountDao" class="com.xycode.springLecture.aopEX.impl.AccountDaoImplWithSupport">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">
-        <!--        构造函数注入数据源,因为这是jar包中的类,没有set方法,所以通过构造函数的方式来注入,JdbcTemplate有这样的构造器-->
-        <constructor-arg ref="dataSource"/>
-    </bean>
+<!--    tip: 当使用AccountDaoImplWithSupport时,就不用配置jdbcTemplate了-->
+<!--    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">-->
+<!--        &lt;!&ndash;        构造函数注入数据源,因为这是jar包中的类,没有set方法,所以通过构造函数的方式来注入,JdbcTemplate有这样的构造器&ndash;&gt;-->
+<!--        <constructor-arg ref="dataSource"/>-->
+<!--    </bean>-->
 
     <!--    tip: 指定配置文件的路径,前缀classpath代表类路径,与ClassLoader方式读取类似-->
     <context:property-placeholder location="classpath:druid.properties" system-properties-mode="FALLBACK"/>
@@ -37,6 +38,8 @@
 
 <!--    开启AOP注解支持-->
     <aop:aspectj-autoproxy/>
+<!--    开启spring事务管理器的注解支持-->
+    <tx:annotation-driven transaction-manager="springTsManager"/>
 
 <!--    配置spring的事务管理器-->
     <bean id="springTsManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -66,7 +69,7 @@
 <!--    配置AOP-->
     <aop:config>
         <aop:pointcut id="pt" expression="execution(* com.xycode.springLecture.aopEX.impl.AccountServiceImpl.*(..))"/>
-
+<!--    这里的配置会将DataSourceTransactionManager的四种通知自动AOP到pt所表示的方法-->
         <aop:advisor advice-ref="txAdvice" pointcut-ref="pt"/>
     </aop:config>
 </beans>

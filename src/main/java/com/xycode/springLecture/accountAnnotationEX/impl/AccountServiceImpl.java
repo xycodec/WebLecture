@@ -1,8 +1,8 @@
-package com.xycode.springLecture.accountEX.impl;
+package com.xycode.springLecture.accountAnnotationEX.impl;
 
-import com.xycode.springLecture.accountEX.Account;
-import com.xycode.springLecture.accountEX.dao.IAccountDao;
-import com.xycode.springLecture.accountEX.service.IAccountService;
+import com.xycode.springLecture.accountAnnotationEX.Account;
+import com.xycode.springLecture.accountAnnotationEX.dao.IAccountDao;
+import com.xycode.springLecture.accountAnnotationEX.service.IAccountService;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -15,7 +15,9 @@ import java.util.List;
  * @Date: 2020/2/8
  * @Description: this is description of the AccountServiceImpl class
  **/
+@Repository("com.xycode.springLecture.accountAnnotationEX.impl.accountService")
 public class AccountServiceImpl implements IAccountService {
+    @Resource(name = "com.xycode.springLecture.accountAnnotationEX.impl.accountDao")
     private IAccountDao accountDao;
 
     public IAccountDao getAccountDao() {
@@ -53,4 +55,6 @@ public class AccountServiceImpl implements IAccountService {
         accountDao.deleteAccount(id);
     }
 
+    public void setAccountDao(AccountDaoImpl accountDao) {
+    }
 }

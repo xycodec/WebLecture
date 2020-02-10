@@ -6,14 +6,19 @@
        xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-        <!--    配置Spring IOC-->
+
+    <!--    配置Spring IOC-->
     <bean id="accountService" class="com.xycode.springLecture.aopEX.impl.AccountServiceImpl">
         <property name="accountDao" ref="accountDao"/>
     </bean>
-    <bean id="accountDao" class="com.xycode.springLecture.aopEX.impl.AccountDaoImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+<!--    这里的AccountDaoImpl2继承了JdbcDaoSupport,所以这里只需配置dataSource即可,而不用配置jdbcTemplate
+        因为JdbcDaoSupport中已经定义了jdbcTemplate,并且还定义了dataSource的set方法-->
+    <bean id="accountDao" class="com.xycode.springLecture.aopEX.impl.AccountDaoImplWithMyTs">
+        <property name="queryRunner" ref="queryRunner"/>
+        <property name="connectionUtils" ref="connectionUtils"/>
     </bean>
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">
+
+    <bean id="queryRunner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
         <!--        构造函数注入数据源,因为这是jar包中的类,没有set方法,所以通过构造函数的方式来注入,JdbcTemplate有这样的构造器-->
         <constructor-arg ref="dataSource"/>
     </bean>
@@ -30,40 +35,38 @@
     </bean>
 
 
-
-<!--    warn: 这个事务控制不能用到JdbcTemplate上,因为JdbcTemplate没有关联Connection的query()-->
-<!--    配置事务管理器,下面会将该bean切面进accountService中,以增强accountService的功能-->
+    <!--    tip: 配置自己实现的事务管理器,下面会将该bean切面进accountService中,以增强accountService的功能-->
     <bean id="tsManager" class="com.xycode.springLecture.aopEX.impl.ts.TransactionManager">
         <property name="connectionUtils" ref="connectionUtils"/>
     </bean>
-<!--    配置工具类的bean-->
+    <!--    配置工具类的bean-->
     <bean id="connectionUtils" class="com.xycode.springLecture.aopEX.impl.ts.ConnectionUtils">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-<!--    配置AOP
-    method属性: 指定切入的方法
-    pointcut属性: 指定增强方法(被切入的方法),method指定的方法会以指定方式切入到pointcut指定的位置(apo:before就是切到前面)
-    execution(切面表达式):
-        切面表达式类似这样: public void com.xycode.springLecture.aopEX.impl.AccountServiceImpl.findAccountByID(int)
-        通配形式的表达式,首先访问类型修饰符考研省略,返回类型/方法名可以用*代替,而包名使用*.来代替,参数列表写成这样..,表示任意个参数(包括0个)
-        即上述表达式可以写成这样: * *.*.*.*.*.*.*(..), 当然,这样就是全通配了,一般我们不这么使用,而是这省略一部分,
-        例如: * com.xycode.springLecture.aopEX.impl.AccountServiceImpl.*(..), 这样只通配指定类下面的所有方法(也可以指定某个包的所有类)
+    <!--    配置AOP
+        method属性: 指定切入的方法
+        pointcut属性: 指定增强方法(被切入的方法),method指定的方法会以指定方式切入到pointcut指定的位置(apo:before就是切到前面)
+        execution(切面表达式):
+            切面表达式类似这样: public void com.xycode.springLecture.aopEX.impl.AccountServiceImpl.findAccountByID(int)
+            通配形式的表达式,首先访问类型修饰符考研省略,返回类型/方法名可以用*代替,而包名使用*.来代替,参数列表写成这样..,表示任意个参数(包括0个)
+            即上述表达式可以写成这样: * *.*.*.*.*.*.*(..), 当然,这样就是全通配了,一般我们不这么使用,而是这省略一部分,
+            例如: * com.xycode.springLecture.aopEX.impl.AccountServiceImpl.*(..), 这样只通配指定类下面的所有方法(也可以指定某个包的所有类)
 
--->
-<!--    warn: 注意,对于jdbcTemplate不起作用! -->
+    -->
     <aop:config>
         <aop:aspect id="tsManager" ref="tsManager">
 
-<!--            通配AOP表达式-->
+            <!--            通配AOP表达式-->
             <aop:pointcut id="pt" expression="execution(* com.xycode.springLecture.aopEX.impl.AccountServiceImpl.*(..))"/>
-<!--            前置通知: 开启事务-->
+
+            <!--            前置通知: 开启事务-->
             <aop:before method="startTransaction" pointcut-ref="pt"/>
-<!--            后置通知: 提交事务-->
+            <!--            后置通知: 提交事务-->
             <aop:after-returning method="commit" pointcut-ref="pt"/>
-<!--            异常通知: 回滚事务-->
+            <!--            异常通知: 回滚事务-->
             <aop:after-throwing method="rollback" pointcut-ref="pt"/>
-<!--            最后通知: 释放连接(终止事务)-->
+            <!--            最后通知: 释放连接(终止事务)-->
             <aop:after method="release" pointcut-ref="pt"/>
 
         </aop:aspect>
@@ -71,6 +74,5 @@
 
 <!--    开启AOP注解支持-->
     <aop:aspectj-autoproxy/>
-
 
 </beans>

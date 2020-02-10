@@ -1,11 +1,10 @@
-package com.xycode.springLecture.accountEx.impl;
+package com.xycode.springLecture.accountEX.impl;
 
-import com.xycode.springLecture.accountEx.Account;
-import com.xycode.springLecture.accountEx.dao.IAccountDao;
+import com.xycode.springLecture.accountEX.Account;
+import com.xycode.springLecture.accountEX.dao.IAccountDao;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -21,11 +20,8 @@ import java.util.List;
  * @Description: this is description of the AccountDaoImpl class
  **/
 //数据访问层的具体实现
-@Repository("accountDao")
 public class AccountDaoImpl implements IAccountDao {
-    @Resource(name = "jdbcTemplate")
     private JdbcTemplate jdbcTemplate;
-
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

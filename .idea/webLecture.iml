@@ -46,6 +46,12 @@
         <fileset id="fileset6" name="AopTsEX" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/aopTsEX.xml</file>
         </fileset>
+        <fileset id="fileset7" name="AopMyTsEX" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/aopMyTsEX.xml</file>
+        </fileset>
+        <fileset id="fileset8" name="AopEX (2)" removed="false">
+          <file>file://$MODULE_DIR$/out/artifacts/webLecture_war_exploded/WEB-INF/classes/aopEX.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
@@ -54,8 +60,8 @@
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/web/WEB-INF/lib" />
     </content>
@@ -72,6 +78,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.17" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.6.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-dbutils:commons-dbutils:1.7" level="project" />
     <orderEntry type="library" name="Maven: org.testng:testng:6.14.3" level="project" />
     <orderEntry type="library" name="Maven: com.beust:jcommander:1.72" level="project" />
     <orderEntry type="library" name="Maven: org.apache-extras.beanshell:bsh:2.0b6" level="project" />

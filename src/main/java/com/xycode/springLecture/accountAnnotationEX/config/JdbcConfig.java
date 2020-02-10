@@ -1,14 +1,13 @@
-package com.xycode.springLecture.accountEx.config;
+package com.xycode.springLecture.accountAnnotationEX.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -19,7 +18,7 @@ import javax.sql.DataSource;
  * @Description: this is description of the JDBCConfig class
  **/
 //@Configurable
-@ComponentScan("com.xycode.springLecture")
+@ComponentScan("com.xycode.springLecture.accountAnnotationEX")
 public class JdbcConfig {
     @Value("${driverClassName}") private String driverClassName;
     @Value("${url}") private String url;
@@ -27,12 +26,13 @@ public class JdbcConfig {
     @Value("${password}") private String password;
     //Bean注解会将修饰的方法的返回的对象存到IOC容器中,key=name,value=返回值
     //当修饰的函数带有参数时会再IOC容器中查找相应的bean(以参数名为key)
-    @Bean(name="jdbcTemplate")
+    @Bean(name="com.xycode.springLecture.accountAnnotationEX.config.jdbcTemplate")
     @Scope("prototype")
-    public JdbcTemplate createJdbcTemplate(DataSource dataSource){
+    public JdbcTemplate createJdbcTemplate(@Qualifier("com.xycode.springLecture.accountAnnotationEX.config.dataSource") DataSource dataSource){
         return new JdbcTemplate(dataSource);
     }
-    @Bean("dataSource")
+
+    @Bean(name = "com.xycode.springLecture.accountAnnotationEX.config.dataSource")
     public DataSource createDataSource(){
         DruidDataSource dataSource=new DruidDataSource();
         dataSource.setDriverClassName(driverClassName);

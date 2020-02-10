@@ -48,6 +48,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
         </dependency>
+        
+<!--    数据库操作工具类.提供的作用类似JdbcTemplate-->
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+            <version>1.7</version>
+        </dependency>
 
 <!--        <dependency>-->
 <!--            <groupId>com.mchange</groupId>-->
