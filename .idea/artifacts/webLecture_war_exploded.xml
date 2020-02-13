@@ -18,6 +18,14 @@
           <element id="library" level="project" name="Maven: org.testng:testng:6.14.3" />
           <element id="library" level="project" name="Maven: com.beust:jcommander:1.72" />
           <element id="library" level="project" name="Maven: org.apache-extras.beanshell:bsh:2.0b6" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.1.0" />
+          <element id="library" level="project" name="Maven: commons-dbutils:commons-dbutils:1.7" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.2.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.2.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.9.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:5.2.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.2.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:5.2.2.RELEASE" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="webLecture/web/Web" />

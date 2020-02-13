@@ -3,8 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    <context-param>
+        <param-name/>
+        <param-value/>
+    </context-param>
 
-<!--    <servlet>-->
+    <!--    <servlet>-->
 <!--        <servlet-name>demo1</servlet-name>-->
 <!--        <servlet-class>com.xycode.servletLecture.firstServlet.servletDemo1</servlet-class>-->
 <!--        &lt;!&ndash; 通过load-on-startup字段指定servlet在服务器启动时触发init() &ndash;&gt;-->
@@ -18,4 +22,40 @@
 <!--    </servlet-mapping>-->
 
 
+<!--    tip: 配置spring的页面分发的dispatcherServlet-->
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+<!--        contextConfigLocation: 指定dispatcherServlet的配置文件路径(这里就是类路径下的springmvc.xml),以指定它的行为-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:springmvc.xml</param-value>
+        </init-param>
+<!--    load-on-startup标签得放到init-param标签的下面    -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+<!--    指定/为dispatcherServlet的访问路径,意思就是路径为/*的所有请求都会被送到dispatcherServlet-->
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
+<!--    tip: 配置过滤器,解决中文乱码问题-->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+<!--        设置utf-8编码,encoding其实就是CharacterEncodingFilter的一个可set的成员变量-->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+
+<!--   /*表示任意当前工程下的任意路径的请求都会被该filter处理 -->
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+<!--
+    tip: properties中可以做一些公用的配置,其他处只需引用即可,引用方式: ${name}
+    properties中也可以引用外部配置文件,以达到解耦的目的
+-->
+<!--    notice: 硬编码的方式去配置properties-->
+<!--    <properties>-->
+<!--        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--        <property name="url" value="jdbc:mysql://127.0.0.1:3306/logindb"/>-->
+<!--        <property name="username" value="root"/>-->
+<!--        <property name="password" value="pass"/>-->
+<!--    </properties>-->
+
+<!--    notice: 引用外部配置文件的方式去配置properties,这里引用druid.properties-->
+    <properties resource="druid.properties"/>
+
+<!--    配置别名-->
+    <typeAliases>
+<!--        notice: 在这里配置后,对于mapper指定的dao.xml中就可以直接使用了(比如IUserDao.xml)-->
+        <typeAlias type="com.xycode.mybatisLecture.domain.User" alias="User"/>
+<!--        指定别名的作用范围?-->
+<!--        <package name="com.xycode.mybatisLecture.domain"/>-->
+    </typeAliases>
+
+    <!--环境配置，连接的数据库，这里使用的是MySQL-->
+    <environments default="mysql">
+        <environment id="mysql">
+            <!--指定事务管理器的类型，这里使用JDBC的提交和回滚设置-->
+            <transactionManager type="jdbc"/>
+            <!--
+                dataSource 指连接源配置，POOLED是JDBC连接对象的数据源连接池的实现
+                合法的取值有POOLED(传统连接池),UNPOOLED
+                以及JNDI(Java Naming and Directory Interface),提供了查找和访问各种命名和目录服务的通用、统一的接口,
+                在这里就是把数据库当做一个注册表的源来使用,通常要配合web服务器来使用(例如tomcat)
+            -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!--这是告诉Mybatis区哪找持久化类的映射文件名，
+            如果在某包下，则要写明路径,如：com/xycode/mybatisLecture/dao/IUserDao.xml-->
+        <mapper resource="com/xycode/mybatisLecture/dao/IUserDao.xml"/>
+<!--        指定xml文件所在的包? 就不必一一指定了-->
+<!--        <package name="com.xycode.mybatisLecture.dao"/>-->
+    </mappers>
+</configuration>

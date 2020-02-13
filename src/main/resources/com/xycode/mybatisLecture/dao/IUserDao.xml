@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xycode.mybatisLecture.dao.IUserDao">
+<!--    namespace加id就限定了com.xycode.mybatisLecture.dao.IUserDao的findAllUser()方法-->
+<!--    notice: 这里使用User别名(alias com.xycode.mybatisLecture.domain.User = User),并且实际上是不区分大小写的(user,USER等均可)-->
+    <select id="findAllUser" resultType="user">
+        select * from account;
+    </select>
+
+<!--    #{}是OGNL(Object Graphic Navigation Language)表达式
+        #{value}: 相当于object.value,其实就是一种getter
+        如果对象中包含引用类型(比如叫ref),則应该这样: #{ref.value}
+-->
+    <insert id="addUser" parameterType="USER">
+        insert into account(id,username,password,money) values(#{id},#{username},#{password},#{money});
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        update account set id=#{id},username=#{username},password=#{password},money=#{money} where id=#{id};
+    </update>
+
+    <delete id="deleteUser"  parameterType="int">
+        delete from account where id=#{id};
+    </delete>
+
+    <select id="findUserByID" parameterType="int" resultType="User">
+        select * from account where id=#{id};
+    </select>
+
+
+<!--    条件查询-->
+    <select id="findUserByCondition" parameterType="User" resultType="User">
+--         notice: where标签相当于sql中的where关键字,当if test条件不成立时,就会变成这样select * from account where, 从而出错!
+
+--         select * from account
+<!--        <where>-->
+<!--&#45;&#45;         若传入的user的password不为null-->
+<!--            <if test="password!=null">-->
+<!--                password=#{password};-->
+<!--            </if>-->
+<!--        </where>-->
+
+--          notice: 下面这种方式在条件不成立时就不会出错!(不用where标签时就需要前面加and)
+        select * from account where 1=1
+        --         若传入的user的password不为null
+        <if test="password!=null">
+            and password=#{password};
+        </if>
+    </select>
+</mapper>

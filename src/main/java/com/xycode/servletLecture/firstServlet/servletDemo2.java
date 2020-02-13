@@ -18,8 +18,8 @@ public class servletDemo2 implements Servlet {
 
     //init方法默认被客户端第一次请求时触发,并且只运行一次
     //可以通过在web.xml中配置load-on-startup字段来指定
-    //1.第一次被访问时触发, 指定<load-on-startup>的值为负数
-    //2.在服务器启动时触发, 指定<load-on-startup>的值大于等于0
+    //1.指定<load-on-startup>的值为负数,表示第一次被访问时触发,
+    //2.指定<load-on-startup>的值大于等于0,表示在服务器启动时触发,
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         System.out.println("servlet2 is inited");
