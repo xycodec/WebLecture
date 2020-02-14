@@ -2,7 +2,6 @@ package com.xycode.mybatisLecture.dao;
 
 import com.xycode.mybatisLecture.domain.User;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 /**

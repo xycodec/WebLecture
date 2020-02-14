@@ -17,7 +17,7 @@
     </insert>
 
     <update id="updateUser" parameterType="User">
-        update account set id=#{id},username=#{username},password=#{password},money=#{money} where id=#{id};
+        update account set username=#{username},password=#{password},money=#{money} where id=#{id};
     </update>
 
     <delete id="deleteUser"  parameterType="int">

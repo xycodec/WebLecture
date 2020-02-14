@@ -8,8 +8,6 @@
     <artifactId>webLecture</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <packaging>jar</packaging>
-
     <build>
         <plugins>
             <plugin>
@@ -41,6 +39,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>5.2.2.RELEASE</version>
+        </dependency>
+
+<!--        spring整合mybatis的支持包-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>2.0.1</version>
         </dependency>
 
 <!--        spring-web实际上包含在spring-webmvc中-->
@@ -81,7 +86,8 @@
             <version>6.14.3</version>
         </dependency>
 
-<!--       servlet支持包 -->
+<!--    servlet支持包 tomcat中也有servlet-api包，可能发生冲突,所以添加<scope>provided</scope>
+        因为provided表明该包只在编译和测试时用,这样当启动tomcat的时候，就不会发生冲突了-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>

@@ -1,6 +1,4 @@
-package com.xycode.mybatisLecture.domain;
-
-import java.io.Serializable;
+package com.xycode.mybatisLecture.annotationEX.domain;
 
 /**
  * ClassName: User
@@ -9,7 +7,7 @@ import java.io.Serializable;
  * @Date: 2020/2/12
  * @Description: this is description of the User class
  **/
-public class User implements Serializable {
+public class User {
     private int id;
     private String username;
     private String password;
