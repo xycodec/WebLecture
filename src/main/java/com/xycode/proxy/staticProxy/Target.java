@@ -1,4 +1,4 @@
-package com.xycode.springLecture.dynamicProxy;
+package com.xycode.proxy.staticProxy;
 
 /**
  * ClassName: Target
@@ -9,5 +9,4 @@ package com.xycode.springLecture.dynamicProxy;
  **/
 public interface Target {
     void sayHello();
-    void sayHello2();
 }

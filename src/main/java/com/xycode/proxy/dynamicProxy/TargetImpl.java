@@ -1,4 +1,4 @@
-package com.xycode.springLecture.dynamicProxy;
+package com.xycode.proxy.dynamicProxy;
 
 /**
  * ClassName: TargetImpl

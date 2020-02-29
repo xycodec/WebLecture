@@ -1,4 +1,4 @@
-package com.xycode.springLecture.dynamicProxy;
+package com.xycode.proxy.dynamicProxy;
 
 import org.testng.annotations.Test;
 
@@ -31,7 +31,7 @@ public class TestDynamicProxy {
                         }
                         System.out.println("--> 前置方法");
                         try {
-                            //notice: 对TargetImpl的方法进行增强
+                            //notice: invoke的第一个参数是要增强(代理)的类,这里是对TargetImpl的方法进行增强
                             result=method.invoke(new TargetImpl(),args);
 //                            int i=1/0;//手动模拟异常
                             System.out.println("--> 后置方法");
@@ -45,7 +45,7 @@ public class TestDynamicProxy {
                     }
                 });
 
-        //Proxy会默认代理接口的所有方法,当然了,可以在invoke()中判断方法名进行针对性的代理
+        //notice: Proxy会默认代理接口的所有方法,当然了,可以在invoke()中判断方法名进行针对性的代理
         proxyTarget.sayHello();
         System.out.println("-------------------------");
         proxyTarget.sayHello2();

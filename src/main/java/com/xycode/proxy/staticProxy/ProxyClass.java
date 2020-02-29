@@ -1,4 +1,4 @@
-package com.xycode.springLecture.staticProxy;
+package com.xycode.proxy.staticProxy;
 
 /**
  * ClassName: ProxyClass
